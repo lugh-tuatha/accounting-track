@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+    relationMode = "prisma"
+}
+
+model Customer {
+    id                  String @id @default(auto()) @map("_id") @db.ObjectId
+    name                String        
+    phone_number        String  
+    bank_account_number String
+    created_at DateTime @default(now()) 
+    updated_at DateTime @updatedAt
+}
+
+model PaymentAccount {
+    id             String @id @default(auto()) @map("_id") @db.ObjectId
+    account_name   String
+    account_number String @unique
+    account_type   String
+    provider       String
+    expenses       Expense[]
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}
+
+model Expense {
+    id                  String @id @default(auto()) @map("_id") @db.ObjectId
+    slug                String @unique
+    payee               String
+    payment_date        DateTime
+    mode_of_payment     String
+    expense_number      Int
+    category            String
+    product             String
+    product_description String
+    amount              Float
+    total               Int
+    memo                String
+    payment_account     PaymentAccount @relation(fields: [payment_account_id], references: [id])
+    payment_account_id  String @db.ObjectId
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+}

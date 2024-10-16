@@ -1,0 +1,7 @@
+GET http://localhost:3000/api/customer
+{
+    "payee": "Ace",
+    "payment_account":
+    "payment_date":
+    "payment_method"
+}
