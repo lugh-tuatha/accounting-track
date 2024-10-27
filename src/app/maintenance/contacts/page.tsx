@@ -60,16 +60,18 @@ export default async function page() {
                         <TableHeader>   
                             <TableRow>
                                 <TableHead>Name</TableHead>
+                                <TableHead>Company Name</TableHead>
                                 <TableHead>Phone Number</TableHead>
-                                <TableHead>Card ID</TableHead>
+                                <TableHead>Open Balance</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {customers.map((customer, index) => (
                                 <TableRow key={index}>
                                     <TableCell>{customer.name}</TableCell>
+                                    <TableCell>{customer.company_name}</TableCell>
                                     <TableCell>{customer.phone_number}</TableCell>
-                                    <TableCell>{customer.bank_account_number}</TableCell>
+                                    <TableCell>₱ {customer.open_balance}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
